@@ -31,19 +31,25 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         custom_button.setOnClickListener {
+            custom_button.buttonState = ButtonState.Clicked
             download()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        custom_button.startAnimation()
     }
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            custom_button.buttonState = ButtonState.Completed
         }
     }
 
     private fun download() {
-        val request =
-            DownloadManager.Request(Uri.parse(URL))
+        val request = DownloadManager.Request(Uri.parse(URL_2))
                 .setTitle(getString(R.string.app_name))
                 .setDescription(getString(R.string.app_description))
                 .setRequiresCharging(false)
@@ -51,14 +57,14 @@ class MainActivity : AppCompatActivity() {
                 .setAllowedOverRoaming(true)
 
         val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-        downloadID =
-            downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+        custom_button.buttonState = ButtonState.Loading
+        downloadID = downloadManager.enqueue(request)
     }
 
     companion object {
-        private const val URL =
-            "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
+        private const val URL_1 = "https://github.com/bumptech/glide"
+        private const val URL_2 = "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
+        private const val URL_3 = "https://github.com/square/retrofit"
         private const val CHANNEL_ID = "channelId"
     }
-
 }

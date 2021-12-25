@@ -9,14 +9,64 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/downloadIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:paddingStart="@dimen/download_image_padding"
+        android:paddingEnd="@dimen/download_image_padding"
+        android:background="@color/download_icon_background"
+        app:srcCompat="@drawable/ic_cloud_download"
+        app:layout_constraintBottom_toTopOf="@id/optionsGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <RadioGroup
+        android:id="@+id/optionsGroup"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:padding="@dimen/base_padding"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/downloadIcon"
+        app:layout_constraintBottom_toTopOf="@id/custom_button">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/downloadGlide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_download_glide"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/downloadLoadApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding"
+            android:text="@string/label_download_load_app"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/downloadRetrofit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding"
+            android:text="@string/label_download_retrofit"/>
+
+    </RadioGroup>
+
     <com.udacity.LoadingButton
         android:id="@+id/custom_button"
         android:layout_width="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="60dp"
         android:layout_margin="20dp"
+        android:textSize="16sp"
+        app:loadingText="@string/label_button_loading"
+        app:defaultText="@string/label_button_download"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/optionsGroup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
