@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.motion.widget.MotionLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="@dimen/base_padding"
+    android:paddingEnd="@dimen/base_padding"
+    android:paddingBottom="@dimen/base_padding"
+    app:layoutDescription="@xml/content_detail_scene"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:padding="@dimen/base_padding"
     tools:context=".DetailActivity"
     tools:showIn="@layout/activity_detail">
 
@@ -14,57 +17,61 @@
         android:id="@+id/fileNameLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_padding"
         android:text="@string/label_file_name"
         android:textSize="@dimen/base_text_size"
         app:layout_constraintEnd_toStartOf="@id/fileName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fileName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/base_text_size"
         android:textColor="@android:color/black"
+        android:textSize="@dimen/base_text_size"
+        android:layout_marginTop="@dimen/base_padding"
+        app:layout_constraintBottom_toTopOf="@id/statusName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/fileNameLabel"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/statusName"
-        tools:text="Glide - Image Loading Library by BumpTech"/>
+        tools:text="Glide - Image Loading Library by BumpTech" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/statusNameLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_padding"
         android:text="@string/label_status"
         android:textSize="@dimen/base_text_size"
-        android:layout_marginTop="@dimen/base_padding"
-        app:layout_constraintTop_toBottomOf="@id/fileName"
         app:layout_constraintEnd_toStartOf="@id/statusName"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fileName" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/statusName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/base_text_size"
-        android:textColor="@android:color/black"
         android:layout_marginTop="@dimen/base_padding"
-        app:layout_constraintTop_toBottomOf="@id/fileName"
-        app:layout_constraintStart_toEndOf="@id/statusNameLabel"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/base_text_size"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Success"/>
+        app:layout_constraintStart_toEndOf="@id/statusNameLabel"
+        app:layout_constraintTop_toBottomOf="@id/fileName"
+        tools:text="Success" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/actionDone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@android:string/ok"
+        android:layout_margin="@dimen/min_dimens"
         android:background="@color/colorAccent"
+        android:text="@android:string/ok"
         android:textColor="@color/white"
         android:textSize="@dimen/base_text_size"
-        android:layout_margin="@dimen/min_dimens"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
+</androidx.constraintlayout.motion.widget.MotionLayout>

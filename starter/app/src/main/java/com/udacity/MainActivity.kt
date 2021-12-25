@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                 null
             }
 
+            dataMap.remove(id)
             notificationManager.sendNotification(extras, id?.toInt()!!, context?.applicationContext!!)
         }
     }

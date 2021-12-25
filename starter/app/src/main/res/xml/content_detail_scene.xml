@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Transition
+        app:constraintSetStart="@+id/start"
+        app:constraintSetEnd="@+id/end"
+        app:duration="500">
+
+        <OnClick
+            app:targetId="@id/fileNameLabel"
+            app:clickAction="toggle" />
+    </Transition>
+
+    <Transition
+        app:constraintSetStart="@+id/start"
+        app:constraintSetEnd="@+id/end"
+        app:duration="500">
+
+        <OnClick
+            app:targetId="@id/fileName"
+            app:clickAction="toggle" />
+    </Transition>
+
+    <Transition
+        app:constraintSetStart="@+id/start"
+        app:constraintSetEnd="@+id/end"
+        app:duration="500">
+
+        <OnClick
+            app:targetId="@id/statusNameLabel"
+            app:clickAction="toggle" />
+    </Transition>
+
+    <Transition
+        app:constraintSetStart="@+id/start"
+        app:constraintSetEnd="@+id/end"
+        app:duration="500">
+
+        <OnClick
+            app:targetId="@id/statusName"
+            app:clickAction="toggle" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@id/fileNameLabel"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding"
+            app:layout_constraintEnd_toStartOf="@id/fileName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/fileName"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding"
+            app:layout_constraintStart_toEndOf="@id/fileNameLabel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/statusName"/>
+
+        <Constraint
+            android:id="@id/statusNameLabel"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding"
+            app:layout_constraintEnd_toStartOf="@id/statusName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fileName" />
+
+        <Constraint
+            android:id="@id/statusName"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding"
+            app:layout_constraintTop_toBottomOf="@id/fileName"
+            app:layout_constraintStart_toEndOf="@id/statusNameLabel"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@id/fileNameLabel"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding"
+            app:layout_constraintEnd_toStartOf="@id/fileName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusName"/>
+
+        <Constraint
+            android:id="@id/fileName"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding"
+            app:layout_constraintStart_toEndOf="@id/fileNameLabel"
+            app:layout_constraintTop_toBottomOf="@id/statusName"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Constraint
+            android:id="@id/statusNameLabel"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding"
+            app:layout_constraintEnd_toStartOf="@id/statusName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/statusName"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/statusNameLabel"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </ConstraintSet>
+</MotionScene>
