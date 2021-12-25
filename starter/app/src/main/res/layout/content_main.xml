@@ -62,7 +62,7 @@
         android:layout_height="60dp"
         android:layout_margin="20dp"
         android:textSize="16sp"
-        app:loadingText="@string/label_button_loading"
+        app:loadingText="@string/button_loading"
         app:defaultText="@string/label_button_download"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

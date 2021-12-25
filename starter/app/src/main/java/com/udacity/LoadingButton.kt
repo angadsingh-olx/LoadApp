@@ -6,7 +6,11 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.LinearInterpolator
+import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
+import androidx.core.animation.doOnEnd
 import androidx.core.content.withStyledAttributes
 import kotlin.properties.Delegates
 
@@ -26,8 +30,8 @@ class LoadingButton @JvmOverloads constructor(
 
     private val tempRect: Rect = Rect()
 
-    @IntRange(from = 0, to = 100)
-    private var progress = 50
+    @FloatRange(from = 0.0, to = 100.0)
+    private var progress = 0f
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
@@ -36,17 +40,42 @@ class LoadingButton @JvmOverloads constructor(
         typeface = Typeface.create( "", Typeface.BOLD)
     }
 
-    private val valueAnimator = ValueAnimator()
+    private val valueAnimator = ValueAnimator.ofFloat(0f, 100f).apply {
+        duration = 5000
+        interpolator = DecelerateInterpolator()
+        addUpdateListener {
+            progress = (it.animatedValue as Float)
+            invalidate()
+        }
+        doOnEnd {
+            isEnabled = true
+            progress = 0f
+            invalidate()
+        }
+    }
 
-    var buttonState: ButtonState by Delegates.observable(ButtonState.Completed) { p, old, new ->
+    var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { property, oldState, newState ->
+        when(newState) {
+            ButtonState.Loading -> {
+                isEnabled = false
+            }
 
+            ButtonState.Completed -> {
+                isEnabled = true
+            }
+
+            ButtonState.Clicked -> {
+                isEnabled = false
+                valueAnimator.start()
+            }
+        }
     }
 
     init {
         isClickable = true
 
         context.withStyledAttributes(attrs, R.styleable.LoadingButton) {
-            loadingText = getString(R.styleable.LoadingButton_loadingText) ?: resources.getString(R.string.label_button_loading)
+            loadingText = getString(R.styleable.LoadingButton_loadingText) ?: resources.getString(R.string.button_loading)
             defaultText = getString(R.styleable.LoadingButton_defaultText) ?: resources.getString(R.string.label_button_download)
             defaultText = getString(R.styleable.LoadingButton_defaultText) ?: resources.getString(R.string.label_button_download)
             textSize = getDimension(R.styleable.LoadingButton_android_textSize, textSize)
@@ -55,8 +84,6 @@ class LoadingButton @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-
-
 
         // Paint default background
         canvas?.drawColor(resources.getColor(R.color.colorPrimary))
@@ -76,10 +103,16 @@ class LoadingButton @JvmOverloads constructor(
         paint.textSize = textSize
         paint.color = Color.WHITE
         paint.textAlign = Paint.Align.CENTER
-        paint.getTextBounds(defaultText, 0, defaultText.length, tempRect)
+
+        val drawText = if (progressRatio == 0f || progressRatio == 1.0f) {
+            defaultText
+        } else {
+            loadingText
+        }
+        paint.getTextBounds(drawText, 0, drawText.length, tempRect)
 
         canvas?.drawText(
-            defaultText,
+            drawText,
             centerX.toFloat(),
             centerY.toFloat() - tempRect.exactCenterY(),
             paint
@@ -96,7 +129,7 @@ class LoadingButton @JvmOverloads constructor(
             startCoordinate + circleDiameter,
             centerY + (circleDiameter / 2f),
         0f,
-            360 * progressRatio,
+            (360 * progressRatio) % 360,
             true,
             paint
         )
@@ -117,16 +150,4 @@ class LoadingButton @JvmOverloads constructor(
         centerY = (heightSize / 2f).toInt()
         setMeasuredDimension(w, h)
     }
-
-    fun startAnimation() {
-        val animator = ValueAnimator.ofInt(0, 100)
-        animator.duration = 5000
-        animator.interpolator = AccelerateDecelerateInterpolator()
-        animator.addUpdateListener {
-            progress = (it.animatedValue as Int)
-            invalidate()
-        }
-        animator.start()
-    }
-
 }

@@ -1,11 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:padding="@dimen/base_padding"
     tools:context=".DetailActivity"
     tools:showIn="@layout/activity_detail">
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/fileNameLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_file_name"
+        android:textSize="@dimen/base_text_size"
+        app:layout_constraintEnd_toStartOf="@id/fileName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/fileName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/base_text_size"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toEndOf="@id/fileNameLabel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/statusName"
+        tools:text="Glide - Image Loading Library by BumpTech"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/statusNameLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_status"
+        android:textSize="@dimen/base_text_size"
+        android:layout_marginTop="@dimen/base_padding"
+        app:layout_constraintTop_toBottomOf="@id/fileName"
+        app:layout_constraintEnd_toStartOf="@id/statusName"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/statusName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/base_text_size"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="@dimen/base_padding"
+        app:layout_constraintTop_toBottomOf="@id/fileName"
+        app:layout_constraintStart_toEndOf="@id/statusNameLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Success"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/actionDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@android:string/ok"
+        android:background="@color/colorAccent"
+        android:textColor="@color/white"
+        android:textSize="@dimen/base_text_size"
+        android:layout_margin="@dimen/min_dimens"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
