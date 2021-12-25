@@ -28,6 +28,8 @@ class LoadingButton @JvmOverloads constructor(
     private var loadingText: String = ""
     private var defaultText: String = ""
 
+    private var textColor = 0
+
     private val tempRect: Rect = Rect()
 
     @FloatRange(from = 0.0, to = 100.0)
@@ -79,6 +81,7 @@ class LoadingButton @JvmOverloads constructor(
             defaultText = getString(R.styleable.LoadingButton_defaultText) ?: resources.getString(R.string.label_button_download)
             defaultText = getString(R.styleable.LoadingButton_defaultText) ?: resources.getString(R.string.label_button_download)
             textSize = getDimension(R.styleable.LoadingButton_android_textSize, textSize)
+            textColor = getColor(R.styleable.LoadingButton_android_textColor, resources.getColor(R.color.white))
         }
     }
 
@@ -101,7 +104,7 @@ class LoadingButton @JvmOverloads constructor(
         )
 
         paint.textSize = textSize
-        paint.color = Color.WHITE
+        paint.color = textColor
         paint.textAlign = Paint.Align.CENTER
 
         val drawText = if (progressRatio == 0f || progressRatio == 1.0f) {
